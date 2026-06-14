@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Профиль</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="navbar card">
+      <nav class="nav-links">
+        <a class="nav-link active" href="profile.html">Профиль</a>
+        <a class="nav-link" href="posts.html">Посты</a>
+        <a class="nav-link" href="index.html">Выход</a>
+      </nav>
+    </header>
+
+    <section class="profile-layout">
+      <div class="profile-top">
+        <div class="profile-grid">
+          <div class="card profile-mini">Здрваствуйте, меня зовут Бобышева Юлия, и я представляю работу, посвящённую моделированию динамики популяций с изменяющейся стратегией размножения.
+            Такие популяции называются клонально-панмиктические. Подобный механизм встречается в природе у многих видов. Примеры таких видов можно увидеть на слайде.
+          </div>
+          <div class="card profile-mini">
+            <div class="profile-photo">
+              <img src="cat.jpg" alt="Фото профиля" />
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline" type="button" id="togglePhotoBtn">
+          Открыть
+        </button>
+
+        <div class="hidden-photo card" id="extraPhoto">
+          <img src="dog2.jpg" alt="Дополнительное фото" style="width:100%; display:block;" />
+        </div>
+      </div>
+
+      <div class="card" style="width:min(720px, 100%); padding: 18px;">
+        <h4 class="auth-heading">Новый пост</h4>
+
+        <div class="field" style="margin-bottom: 12px;">
+          <label class="label" for="post-title">Название поста</label>
+          <input class="input" id="post-title" type="text" placeholder="Введите название поста" />
+        </div>
+
+        <div class="field" style="margin-bottom: 12px;">
+          <label class="label" for="post-body">Текст поста</label>
+          <textarea class="textarea" id="post-body" placeholder="Введите текст поста"></textarea>
+        </div>
+
+        <div class="field" style="margin-bottom: 12px;">
+          <label class="label" for="files">Добавление файлов</label>
+          <div class="upload-box">
+            <input id="files" type="file" multiple />
+          </div>
+        </div>
+
+        <button class="btn" type="button">Сохранить</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById('togglePhotoBtn');
+    const extraPhoto = document.getElementById('extraPhoto');
+
+    toggleBtn.addEventListener('click', () => {
+      extraPhoto.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
