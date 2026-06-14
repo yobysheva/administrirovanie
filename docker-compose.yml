@@ -1,0 +1,45 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lamp_webapp_web
+    ports:
+      - "7999:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: lab_user
+      DB_PASS: lab_password
+      DB_NAME: lab_web
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/var/www/html/lamp_webapp/uploads
+    restart: unless-stopped
+
+  db:
+    image: mariadb:11.4
+    container_name: lamp_webapp_db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: lab_web
+      MARIADB_USER: lab_user
+      MARIADB_PASSWORD: lab_password
+      MARIADB_ROOT_PASSWORD: root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-uroot", "-proot_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads_data:
